@@ -272,7 +272,7 @@ function Timetablepage(props) {
       const response =
         await fetch(
 
-          "http://localhost:5000/timetable/save",
+          "http://school-erp-server-fmwp.onrender.com/timetable/save",
 
           {
 
@@ -351,7 +351,7 @@ function Timetablepage(props) {
     };
 
     const response = await fetch(
-      "http://localhost:5000/timetable/save",
+      "http://school-erp-server-fmwp.onrender.com/timetable/save",
       {
         method: "POST",
         headers: {
@@ -394,7 +394,7 @@ function Timetablepage(props) {
 
         const response =
           await fetch(
-            `http://localhost:5000/timetable/get/${props.className}`
+            `http://school-erp-server-fmwp.onrender.com/timetable/get/${props.className}`
           );
 
         const data =

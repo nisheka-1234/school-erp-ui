@@ -72,7 +72,7 @@ const [showExamList, setShowExamList] =
         const response =
         await fetch(
 
-          `http://localhost:5000/marks/all/${studentId}`
+          `http://school-erp-server-fmwp.onrender.com/marks/all/${studentId}`
 
         );
 
@@ -194,7 +194,7 @@ const [showExamList, setShowExamList] =
       const response =
       await fetch(
 
-        "http://localhost:5000/marks/save",
+        "http://school-erp-server-fmwp.onrender.com/marks/save",
 
         {
 
@@ -271,7 +271,7 @@ async () => {
 
     const response =
       await fetch(
-        `http://localhost:5000/marks/all/${studentId}`
+        `http://school-erp-server-fmwp.onrender.com/marks/all/${studentId}`
       );
 
     const data =
@@ -310,7 +310,7 @@ async () => {
       const response =
       await fetch(
 
-        `http://localhost:5000/marks/search/${searchExam}?studentId=${studentId}`
+        `http://school-erp-server-fmwp.onrender.com/marks/search/${searchExam}?studentId=${studentId}`
 
       );
 

@@ -69,7 +69,7 @@ function Feespage(props) {
       try {
 
         const response = await fetch(
-          `http://localhost:5000/fees/get/${studentId}`
+          `http://school-erp-server-fmwp.onrender.com/fees/get/${studentId}`
         );
 
         const data =
@@ -229,7 +229,7 @@ function Feespage(props) {
       );
 
       const response = await fetch(
-        "http://localhost:5000/fees/save",
+        "http://school-erp-server-fmwp.onrender.com/fees/save",
         {
 
           method: "POST",

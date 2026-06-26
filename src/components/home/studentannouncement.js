@@ -9,11 +9,11 @@ function Studentannouncement(props) {
   const fetchAnnouncements = useCallback(async () => {
     try {
       const globalRes = await axios.get(
-        "http://localhost:5000/announcement/get"
+        "http://school-erp-server-fmwp.onrender.com/announcement/get"
       );
 
       const classRes = await axios.get(
-        `http://localhost:5000/timetable/get/${props.className}`
+        `http://school-erp-server-fmwp.onrender.com/timetable/get/${props.className}`
       );
 
       const globalAnnouncements = globalRes.data || [];
