@@ -18,7 +18,7 @@ const handleLogin = async () => {
     const response =
       await fetch(
 
-        "http://school-erp-server-fmwp.onrender.com/student/login",
+        "https://school-erp-server-fmwp.onrender.com/student/login",
 
         {
 

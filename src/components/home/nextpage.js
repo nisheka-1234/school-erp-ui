@@ -34,7 +34,7 @@ function Studentpage(props) {
     if (!props.className) return;
 
     fetch(
-      `http://school-erp-server-fmwp.onrender.com/details/student?classname=${props.className}`
+      `https://school-erp-server-fmwp.onrender.com/details/student?classname=${props.className}`
     )
       .then((res) => res.json())
 
@@ -161,7 +161,7 @@ function Studentpage(props) {
       );
 
       await fetch(
-        "http://school-erp-server-fmwp.onrender.com/details/savestudent",
+        "https://school-erp-server-fmwp.onrender.com/details/savestudent",
         {
 
           method: "POST",
@@ -192,7 +192,7 @@ function Studentpage(props) {
     await saveStudentsToDB();
 
     fetch(
-      `http://school-erp-server-fmwp.onrender.com/details/student?classname=${props.className}`
+      `https://school-erp-server-fmwp.onrender.com/details/student?classname=${props.className}`
     )
       .then((res) => res.json())
 

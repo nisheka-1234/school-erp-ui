@@ -45,7 +45,7 @@ function Announcementpage(props) {
 const fetchAnnouncements = async () => {
   try {
     const res = await axios.get(
-      "http://school-erp-server-fmwp.onrender.com/announcement/get"
+      "https://school-erp-server-fmwp.onrender.com/announcement/get"
     );
 
     setAnnouncements(res.data); // ✔ show ALL announcements from DB
@@ -83,7 +83,7 @@ const fetchAnnouncements = async () => {
 
       await axios.post(
 
-        "http://school-erp-server-fmwp.onrender.com/announcement/save",
+        "https://school-erp-server-fmwp.onrender.com/announcement/save",
 
         newAnnouncement
 
