@@ -135,7 +135,7 @@ function Studentdetails(props) {
         props.student?.studentId;
 
       const res = await fetch(
-        "https://school-erp-server-fmwp.onrender.com/attendance/save",
+        "https://school-erp-server-4.onrender.com/attendance/save",
         {
           method: "POST",
 
@@ -203,7 +203,7 @@ function Studentdetails(props) {
         if (!studentId) return;
 
         const res = await fetch(
-          `https://school-erp-server-fmwp.onrender.com/attendance/get?studentId=${studentId}`
+          `https://school-erp-server-4.onrender.com/attendance/get?studentId=${studentId}`
         );
 
         const data = await res.json();

@@ -1,52 +1,48 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 import "./teacherlogin.css";
-
 import bgImage from "../../assets/background.jpg";
 
 function Teacherlogin(props) {
 
-  const [username, setUsername] =
-    useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+const handleLogin = () => {
 
-  const [password, setPassword] =
-    useState("");
+  const teacherUser = "adminlogin";
+  const teacherPass = "admin@0987";
 
-  const handleLogin = () => {
+  if (
+    username === teacherUser &&
+    password === teacherPass
+  ) {
 
-    const teacherUser = "adminlogin";
+    Swal.fire({
+      icon: "success",
+      title: "Login Successful",
+      text: "Welcome!"
+    });
 
-    const teacherPass = "admin@0987";
+    props.goHome();
 
-    if (
-      username === teacherUser &&
-      password === teacherPass
-    ) {
+  } else {
 
-      alert("Login Successful");
+    Swal.fire({
+      icon: "error",
+      title: "Login Failed",
+      text: "Wrong Username or Password"
+    });
 
-      props.goHome();
+  }
 
-    }
-
-    else {
-
-      alert(
-        "Wrong Username or Password"
-      );
-
-    }
-
-  };
-
+};
   return (
 
     <div
       className="teacher-page-container"
-
       style={{
-        backgroundImage:
-          `url(${bgImage})`
+        backgroundImage: `url(${bgImage})`
       }}
     >
 
@@ -54,52 +50,28 @@ function Teacherlogin(props) {
 
         <div className="teacher-page-box">
 
-          <h2>
-
-            Teacher Login
-
-          </h2>
+          <h2>Teacher Login</h2>
 
           <p className="login-subtitle">
-
             Access Teacher Dashboard
-
           </p>
 
           <input
             type="text"
-
             placeholder="Enter Username"
-
             value={username}
-
-            onChange={(e) =>
-              setUsername(
-                e.target.value
-              )
-            }
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <input
             type="password"
-
             placeholder="Enter Password"
-
             value={password}
-
-            onChange={(e) =>
-              setPassword(
-                e.target.value
-              )
-            }
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button
-            onClick={handleLogin}
-          >
-
+          <button onClick={handleLogin}>
             Login
-
           </button>
 
         </div>

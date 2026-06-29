@@ -72,7 +72,7 @@ const [showExamList, setShowExamList] =
         const response =
         await fetch(
 
-          `https://school-erp-server-fmwp.onrender.com/marks/all/${studentId}`
+          `https://school-erp-server-4.onrender.com/marks/all/${studentId}`
 
         );
 
@@ -194,7 +194,7 @@ const [showExamList, setShowExamList] =
       const response =
       await fetch(
 
-        "https://school-erp-server-fmwp.onrender.com/marks/save",
+        "https://school-erp-server-4.onrender.com/marks/save",
 
         {
 
@@ -271,7 +271,7 @@ async () => {
 
     const response =
       await fetch(
-        `https://school-erp-server-fmwp.onrender.com/marks/all/${studentId}`
+        `https://school-erp-server-4.onrender.com/marks/all/${studentId}`
       );
 
     const data =
@@ -310,7 +310,7 @@ async () => {
       const response =
       await fetch(
 
-        `https://school-erp-server-fmwp.onrender.com/marks/search/${searchExam}?studentId=${studentId}`
+        `https://school-erp-server-4.onrender.com/marks/search/${searchExam}?studentId=${studentId}`
 
       );
 

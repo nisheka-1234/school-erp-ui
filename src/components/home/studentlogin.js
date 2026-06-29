@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Swal from "sweetalert2";
 import "./studentlogin.css";
 
 import bgImage from "../../assets/background.jpg";
@@ -18,7 +18,7 @@ const handleLogin = async () => {
     const response =
       await fetch(
 
-        "https://school-erp-server-fmwp.onrender.com/student/login",
+        "https://school-erp-server-4.onrender.com/student/login",
 
         {
 
@@ -52,9 +52,11 @@ const handleLogin = async () => {
 
     if (response.ok) {
 
-      alert(
-        "Login Successful"
-      );
+     Swal.fire({
+  icon: "success",
+  title: "Login Successful",
+  text: "Welcome!"
+}); 
 
       props.setSelectedStudent(
         data
