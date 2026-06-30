@@ -1,71 +1,109 @@
 import React, { useState } from "react";
 
 import Welcome from "./components/login/welcome";
-
 import Teacherlogin from "./components/login/teacherlogin";
-
 import Homepage from "./components/home/homepage";
-
 import Studentpage from "./components/home/nextpage";
-
 import Studentdetails from "./components/home/attenence";
-
 import Markspage from "./components/home/mark";
-
 import Feespage from "./components/home/fees";
-
 import Timetablepage from "./components/home/timetable";
-
 import Studentlogin from "./components/home/studentlogin";
-
 import Studenthome from "./components/home/studenthome";
-
 import Announcementpage from "./components/home/announcement";
-
 import Studentannouncement from "./components/home/studentannouncement";
-
 
 function App() {
 
-  const [page, setPage] =
-    useState("welcome");
+  const [page, setPage] = useState(
+    localStorage.getItem("page") || "welcome"
+  );
 
-  const [
-    previousPage,
-    setPreviousPage
-  ] = useState("");
+  const [previousPage, setPreviousPage] =
+    useState(
+      localStorage.getItem("previousPage") || ""
+    );
 
-  const [
-    selectedClass,
-    setSelectedClass
-  ] = useState("");
+  const [selectedClass, setSelectedClass] =
+    useState(
+      localStorage.getItem("selectedClass") || ""
+    );
 
-  const [
-    selectedStudent,
-    setSelectedStudent
-  ] = useState(null);
+  const [selectedStudent, setSelectedStudent] =
+    useState(() => {
+
+      const saved =
+        localStorage.getItem("selectedStudent");
+
+      return saved
+        ? JSON.parse(saved)
+        : null;
+
+    });
 
   const [students, setStudents] =
     useState([]);
 
-  /* LOGIN TYPE */
-
-  const [
-    isStudentLogin,
-    setIsStudentLogin
-  ] = useState(false);
-
-
-  /* NAVIGATE */
+  const [isStudentLogin, setIsStudentLogin] =
+    useState(
+      JSON.parse(
+        localStorage.getItem("isStudentLogin")
+      ) || false
+    );
 
   const navigate = (nextPage) => {
 
     setPreviousPage(page);
 
+    localStorage.setItem(
+      "previousPage",
+      page
+    );
+
     setPage(nextPage);
+
+    localStorage.setItem(
+      "page",
+      nextPage
+    );
 
   };
 
+  const saveStudent = (student) => {
+
+    setSelectedStudent(student);
+
+    localStorage.setItem(
+      "selectedStudent",
+      JSON.stringify(student)
+    );
+
+  };
+
+  const saveClass = (className) => {
+
+    setSelectedClass(className);
+
+    localStorage.setItem(
+      "selectedClass",
+      className
+    );
+
+  };
+
+  const logout = () => {
+
+    localStorage.clear();
+
+    setPage("welcome");
+
+    setSelectedStudent(null);
+
+    setSelectedClass("");
+
+    setIsStudentLogin(false);
+
+  };
 
   /* WELCOME */
 
@@ -76,15 +114,11 @@ function App() {
       <Welcome
 
         goTeacher={() =>
-          navigate(
-            "teacherlogin"
-          )
+          navigate("teacherlogin")
         }
 
         goStudent={() =>
-          navigate(
-            "studentlogin"
-          )
+          navigate("studentlogin")
         }
 
       />
@@ -92,7 +126,6 @@ function App() {
     );
 
   }
-
 
   /* TEACHER LOGIN */
 
@@ -106,6 +139,11 @@ function App() {
 
           setIsStudentLogin(false);
 
+          localStorage.setItem(
+            "isStudentLogin",
+            false
+          );
+
           navigate("home");
 
         }}
@@ -116,7 +154,6 @@ function App() {
 
   }
 
-
   /* STUDENT LOGIN */
 
   if (page === "studentlogin") {
@@ -125,17 +162,18 @@ function App() {
 
       <Studentlogin
 
-        setSelectedStudent={
-          setSelectedStudent
-        }
+        setSelectedStudent={saveStudent}
 
         goStudentHome={() => {
 
           setIsStudentLogin(true);
 
-          navigate(
-            "studenthome"
+          localStorage.setItem(
+            "isStudentLogin",
+            true
           );
+
+          navigate("studenthome");
 
         }}
 
@@ -144,8 +182,6 @@ function App() {
     );
 
   }
-
-
   /* TEACHER HOME */
 
   if (page === "home") {
@@ -154,23 +190,13 @@ function App() {
 
       <Homepage
 
-        goLogout={() =>
-          navigate(
-            "welcome"
-          )
-        }
+        goLogout={logout}
 
-        openClass={(
-          className
-        ) => {
+        openClass={(className) => {
 
-          setSelectedClass(
-            className
-          );
+          saveClass(className);
 
-          navigate(
-            "students"
-          );
+          navigate("students");
 
         }}
 
@@ -183,7 +209,6 @@ function App() {
     );
 
   }
-
 
   /* STUDENTS PAGE */
 
@@ -205,7 +230,7 @@ function App() {
 
         openStudent={(student) => {
 
-          setSelectedStudent(student);
+          saveStudent(student);
 
           navigate("details");
 
@@ -213,9 +238,7 @@ function App() {
 
         openTimeTable={() => {
 
-          setSelectedClass(
-            selectedClass
-          );
+          saveClass(selectedClass);
 
           navigate("timetable");
 
@@ -227,7 +250,6 @@ function App() {
 
   }
 
-
   /* TEACHER DETAILS */
 
   if (page === "details") {
@@ -236,14 +258,10 @@ function App() {
 
       <Studentdetails
 
-        student={
-          selectedStudent
-        }
+        student={selectedStudent}
 
         goBack={() =>
-          navigate(
-            "students"
-          )
+          navigate("students")
         }
 
         goHome={() =>
@@ -260,13 +278,9 @@ function App() {
 
         goTimeTable={() => {
 
-          setSelectedClass(
-            selectedStudent?.classname
-          );
+          saveClass(selectedStudent?.classname);
 
-          navigate(
-            "timetable"
-          );
+          navigate("timetable");
 
         }}
 
@@ -276,48 +290,31 @@ function App() {
 
   }
 
-
   /* STUDENT HOME */
 
-  if (
-    page === "studenthome"
-  ) {
+  if (page === "studenthome") {
 
     return (
 
       <Studenthome
 
-        student={
-          selectedStudent
-        }
+        student={selectedStudent}
 
-        goHome={() =>
-          navigate(
-            "welcome"
-          )
-        }
+        goHome={logout}
 
         goProgress={() =>
-          navigate(
-            "studentdetails"
-          )
+          navigate("studentdetails")
         }
 
         goNotification={() =>
-          navigate(
-            "studentannouncement"
-          )
+          navigate("studentannouncement")
         }
 
         goTimeTable={() => {
 
-          setSelectedClass(
-            selectedStudent?.classname
-          );
+          saveClass(selectedStudent?.classname);
 
-          navigate(
-            "timetable"
-          );
+          navigate("timetable");
 
         }}
 
@@ -327,33 +324,24 @@ function App() {
 
   }
 
-
   /* STUDENT DETAILS */
 
-  if (
-    page === "studentdetails"
-  ) {
+  if (page === "studentdetails") {
 
     return (
 
       <Studentdetails
 
-        student={
-          selectedStudent
-        }
+        student={selectedStudent}
 
         isStudent={true}
 
         goBack={() =>
-          navigate(
-            "studenthome"
-          )
+          navigate("studenthome")
         }
 
         goHome={() =>
-          navigate(
-            "studenthome"
-          )
+          navigate("studenthome")
         }
 
         goMarks={() =>
@@ -366,13 +354,9 @@ function App() {
 
         goTimeTable={() => {
 
-          setSelectedClass(
-            selectedStudent?.classname
-          );
+          saveClass(selectedStudent?.classname);
 
-          navigate(
-            "timetable"
-          );
+          navigate("timetable");
 
         }}
 
@@ -381,7 +365,6 @@ function App() {
     );
 
   }
-
 
   /* MARKS */
 
@@ -393,31 +376,21 @@ function App() {
 
         student={selectedStudent}
 
-        isStudent={
-          isStudentLogin
-        }
+        isStudent={isStudentLogin}
 
         goBack={() =>
 
           isStudentLogin
-            ? navigate(
-                "studentdetails"
-              )
-            : navigate(
-                "details"
-              )
+            ? navigate("studentdetails")
+            : navigate("details")
 
         }
 
         goHome={() =>
 
           isStudentLogin
-            ? navigate(
-                "studenthome"
-              )
-            : navigate(
-                "home"
-              )
+            ? navigate("studenthome")
+            : navigate("home")
 
         }
 
@@ -426,7 +399,6 @@ function App() {
     );
 
   }
-
 
   /* FEES */
 
@@ -438,31 +410,21 @@ function App() {
 
         student={selectedStudent}
 
-        isStudent={
-          isStudentLogin
-        }
+        isStudent={isStudentLogin}
 
         goBack={() =>
 
           isStudentLogin
-            ? navigate(
-                "studentdetails"
-              )
-            : navigate(
-                "details"
-              )
+            ? navigate("studentdetails")
+            : navigate("details")
 
         }
 
         goHome={() =>
 
           isStudentLogin
-            ? navigate(
-                "studenthome"
-              )
-            : navigate(
-                "home"
-              )
+            ? navigate("studenthome")
+            : navigate("home")
 
         }
 
@@ -471,7 +433,6 @@ function App() {
     );
 
   }
-
 
   /* ANNOUNCEMENT */
 
@@ -495,21 +456,18 @@ function App() {
 
   }
 
-
   /* STUDENT ANNOUNCEMENT */
 
-  if (
-    page === "studentannouncement"
-  ) {
+  if (page === "studentannouncement") {
 
     return (
 
       <Studentannouncement
-className={selectedStudent?.classname}
+
+        className={selectedStudent?.classname}
+
         goBack={() =>
-          navigate(
-            "studenthome"
-          )
+          navigate("studenthome")
         }
 
       />
@@ -518,12 +476,9 @@ className={selectedStudent?.classname}
 
   }
 
-
   /* TIMETABLE */
 
-  if (
-    page === "timetable"
-  ) {
+  if (page === "timetable") {
 
     return (
 
@@ -531,9 +486,7 @@ className={selectedStudent?.classname}
 
         className={selectedClass}
 
-        isStudent={
-          isStudentLogin
-        }
+        isStudent={isStudentLogin}
 
         goBack={() =>
           navigate(previousPage)
@@ -542,12 +495,8 @@ className={selectedStudent?.classname}
         goHome={() =>
 
           isStudentLogin
-            ? navigate(
-                "studenthome"
-              )
-            : navigate(
-                "home"
-              )
+            ? navigate("studenthome")
+            : navigate("home")
 
         }
 
@@ -556,6 +505,8 @@ className={selectedStudent?.classname}
     );
 
   }
+
+  return null;
 
 }
 

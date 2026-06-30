@@ -57,7 +57,10 @@ const handleLogin = async () => {
   title: "Login Successful",
   text: "Welcome!"
 }); 
-
+localStorage.setItem(
+  "selectedStudent",
+  JSON.stringify(data)
+);
       props.setSelectedStudent(
         data
       );
@@ -67,10 +70,11 @@ const handleLogin = async () => {
     }
 
     else {
-
-      alert(
-        data.message
-      );
+Swal.fire({
+  icon: "error",
+  title: "Login Failed",
+  text: data.message || "Wrong Username or Password"
+});
 
     }
 
@@ -80,7 +84,11 @@ const handleLogin = async () => {
 
     console.log(error);
 
-    alert("Server Error");
+    Swal.fire({
+  icon: "error",
+  title: "Server Error",
+  text: "Please try again later."
+});
 
   }
 

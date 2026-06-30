@@ -160,23 +160,23 @@ function Studentpage(props) {
         payload
       );
 
-      await fetch(
-        "https://school-erp-server-4.onrender.com/details/savestudent",
-        {
+const response = await fetch(
+  "https://school-erp-server-4.onrender.com/details/savestudent",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  }
+);
 
-          method: "POST",
+const data = await response.json();
+console.log(data);
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify(
-            payload
-          )
-
-        }
-      );
+if (!response.ok) {
+  throw new Error("Save failed");
+}
 
     } catch (error) {
 
