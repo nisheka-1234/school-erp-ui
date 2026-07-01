@@ -16,24 +16,24 @@ import Studentannouncement from "./components/home/studentannouncement";
 function App() {
 
   const [page, setPage] = useState(
-    localStorage.getItem("page") || "welcome"
+    sessionStorage.getItem("page") || "welcome"
   );
 
   const [previousPage, setPreviousPage] =
     useState(
-      localStorage.getItem("previousPage") || ""
+      sessionStorage.getItem("previousPage") || ""
     );
 
   const [selectedClass, setSelectedClass] =
     useState(
-      localStorage.getItem("selectedClass") || ""
+      sessionStorage.getItem("selectedClass") || ""
     );
 
   const [selectedStudent, setSelectedStudent] =
     useState(() => {
 
       const saved =
-        localStorage.getItem("selectedStudent");
+        sessionStorage.getItem("selectedStudent");
 
       return saved
         ? JSON.parse(saved)
@@ -47,7 +47,7 @@ function App() {
   const [isStudentLogin, setIsStudentLogin] =
     useState(
       JSON.parse(
-        localStorage.getItem("isStudentLogin")
+        sessionStorage.getItem("isStudentLogin")
       ) || false
     );
 
@@ -55,14 +55,14 @@ function App() {
 
     setPreviousPage(page);
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "previousPage",
       page
     );
 
     setPage(nextPage);
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "page",
       nextPage
     );
@@ -73,7 +73,7 @@ function App() {
 
     setSelectedStudent(student);
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "selectedStudent",
       JSON.stringify(student)
     );
@@ -84,7 +84,7 @@ function App() {
 
     setSelectedClass(className);
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "selectedClass",
       className
     );
@@ -93,7 +93,7 @@ function App() {
 
   const logout = () => {
 
-    localStorage.clear();
+    sessionStorage.clear();
 
     setPage("welcome");
 
@@ -139,7 +139,7 @@ function App() {
 
           setIsStudentLogin(false);
 
-          localStorage.setItem(
+          sessionStorage.setItem(
             "isStudentLogin",
             false
           );
@@ -168,7 +168,7 @@ function App() {
 
           setIsStudentLogin(true);
 
-          localStorage.setItem(
+          sessionStorage.setItem(
             "isStudentLogin",
             true
           );
@@ -278,7 +278,9 @@ function App() {
 
         goTimeTable={() => {
 
-          saveClass(selectedStudent?.classname);
+          saveClass(
+            selectedStudent?.classname
+          );
 
           navigate("timetable");
 
@@ -312,7 +314,9 @@ function App() {
 
         goTimeTable={() => {
 
-          saveClass(selectedStudent?.classname);
+          saveClass(
+            selectedStudent?.classname
+          );
 
           navigate("timetable");
 
@@ -354,7 +358,9 @@ function App() {
 
         goTimeTable={() => {
 
-          saveClass(selectedStudent?.classname);
+          saveClass(
+            selectedStudent?.classname
+          );
 
           navigate("timetable");
 
@@ -381,16 +387,24 @@ function App() {
         goBack={() =>
 
           isStudentLogin
-            ? navigate("studentdetails")
-            : navigate("details")
+            ? navigate(
+                "studentdetails"
+              )
+            : navigate(
+                "details"
+              )
 
         }
 
         goHome={() =>
 
           isStudentLogin
-            ? navigate("studenthome")
-            : navigate("home")
+            ? navigate(
+                "studenthome"
+              )
+            : navigate(
+                "home"
+              )
 
         }
 
@@ -415,16 +429,24 @@ function App() {
         goBack={() =>
 
           isStudentLogin
-            ? navigate("studentdetails")
-            : navigate("details")
+            ? navigate(
+                "studentdetails"
+              )
+            : navigate(
+                "details"
+              )
 
         }
 
         goHome={() =>
 
           isStudentLogin
-            ? navigate("studenthome")
-            : navigate("home")
+            ? navigate(
+                "studenthome"
+              )
+            : navigate(
+                "home"
+              )
 
         }
 
@@ -464,7 +486,9 @@ function App() {
 
       <Studentannouncement
 
-        className={selectedStudent?.classname}
+        className={
+          selectedStudent?.classname
+        }
 
         goBack={() =>
           navigate("studenthome")
@@ -495,8 +519,12 @@ function App() {
         goHome={() =>
 
           isStudentLogin
-            ? navigate("studenthome")
-            : navigate("home")
+            ? navigate(
+                "studenthome"
+              )
+            : navigate(
+                "home"
+              )
 
         }
 
